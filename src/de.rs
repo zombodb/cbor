@@ -329,14 +329,7 @@ where
 
     fn convert_str<'a>(buf: &'a [u8], buf_end_offset: u64) -> Result<&'a str> {
         unsafe {
-        match str::from_utf8_unchecked(buf) {
-            Ok(s) => Ok(s),
-            Err(e) => {
-                let shift = buf.len() - e.valid_up_to();
-                let offset = buf_end_offset - shift as u64;
-                Err(Error::syntax(ErrorCode::InvalidUtf8, offset))
-            }
-        }
+        	str::from_utf8_unchecked(buf)
 	}
     }
 
