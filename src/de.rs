@@ -328,7 +328,8 @@ where
     }
 
     fn convert_str<'a>(buf: &'a [u8], buf_end_offset: u64) -> Result<&'a str> {
-        match str::from_utf8(buf) {
+        unsafe {
+        match str::from_utf8_unchecked(buf) {
             Ok(s) => Ok(s),
             Err(e) => {
                 let shift = buf.len() - e.valid_up_to();
@@ -336,6 +337,7 @@ where
                 Err(Error::syntax(ErrorCode::InvalidUtf8, offset))
             }
         }
+	}
     }
 
     fn parse_str<V>(&mut self, len: usize, visitor: V) -> Result<V::Value>
