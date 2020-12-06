@@ -579,6 +579,7 @@ where
     // Don't warn about the `unreachable!` in case
     // exhaustive integer pattern matching is enabled.
     #[allow(unreachable_patterns)]
+    #[inline]
     fn parse_value<V>(&mut self, visitor: V) -> Result<V::Value>
     where
         V: de::Visitor<'de>,
